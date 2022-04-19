@@ -108,15 +108,15 @@ class Base extends Component {
     } = Auth;
 
     // Si user.guest es True quiere decir que el que accede es un estudiante.
-    if(User.guest === false){
-	    const elmLogo = document.getElementById('logo-company');
+    // if(User.guest === false){
+//	    const elmLogo = document.getElementById('logo-company');
 	    
 	    //Actualizo el nombre del estudiante
-	    if(elmLogo){
-	      elmLogo.innerHTML = `${fullname} <p>https://newtoncaceres.com</p>`;
-	      elmLogo.style.display = "block";
-	    }
-    }
+//	    if(elmLogo){
+//	      elmLogo.innerHTML = `${fullname} <p>https://newtoncaceres.com</p>`;
+//	      elmLogo.style.display = "block";
+//	    }
+  //  }
 
     if (animations) HTML.classList.add('animationsEnabled');
     if (!animations) HTML.classList.add('animationsDisabled');
