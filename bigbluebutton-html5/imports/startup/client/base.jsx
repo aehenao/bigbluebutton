@@ -24,6 +24,7 @@ import VideoService from '/imports/ui/components/video-provider/service';
 import DebugWindow from '/imports/ui/components/debug-window/component';
 import { ACTIONS, PANELS } from '../../ui/components/layout/enums';
 import MediaService from '/imports/ui/components/media/service';
+import { UsersContext } from '/imports/ui/components/components-data/users-context/context';
 
 const CHAT_CONFIG = Meteor.settings.public.chat;
 const CHAT_ENABLED = CHAT_CONFIG.enabled;
@@ -90,6 +91,9 @@ class Base extends Component {
 
   componentDidMount() {
     const { animations, usersVideo, layoutContextDispatch } = this.props;
+	  // Obtengo el parametro de la ruta y trabajo con el.
+    const { urlPath, User } = this.props;
+
 
     layoutContextDispatch({
       type: ACTIONS.SET_NUM_CAMERAS,
@@ -100,7 +104,19 @@ class Base extends Component {
 
     const {
       userID: localUserId,
+	fullname,
     } = Auth;
+
+    // Si user.guest es True quiere decir que el que accede es un estudiante.
+    if(User.guest === false){
+	    const elmLogo = document.getElementById('logo-company');
+	    
+	    //Actualizo el nombre del estudiante
+	    if(elmLogo){
+	      elmLogo.innerHTML = `${fullname} <p>https://newtoncaceres.com</p>`;
+	      elmLogo.style.display = "block";
+	    }
+    }
 
     if (animations) HTML.classList.add('animationsEnabled');
     if (!animations) HTML.classList.add('animationsDisabled');
@@ -373,7 +389,7 @@ class Base extends Component {
       meetingExist,
     } = this.props;
     const { meetingExisted } = this.state;
-
+	  
     return (
       <>
         {meetingExist && Auth.loggedIn && <DebugWindow />}
@@ -438,6 +454,7 @@ const BaseContainer = withTracker(() => {
   const ejected = User?.ejected;
   const ejectedReason = User?.ejectedReason;
   const meetingEndedReason = meeting?.meetingEndedReason;
+  const urlPath = window.location.href;
 
   let userSubscriptionHandler;
 
@@ -522,6 +539,7 @@ const BaseContainer = withTracker(() => {
     loggedIn,
     codeError,
     usersVideo,
+    urlPath,
   };
 })(LayoutContextFunc.withContext(Base));
 

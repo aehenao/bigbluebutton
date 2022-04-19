@@ -39,6 +39,7 @@
     "browser-bunyan": "^1.6.3",
     "classnames": "^2.2.6",
     "crypto-js": "^4.0.0",
+    "cryptojs": "^2.5.3",
     "eventemitter2": "~5.0.1",
     "fastdom": "^1.0.10",
     "fibers": "^4.0.2",
